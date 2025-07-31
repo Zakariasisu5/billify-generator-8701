@@ -1,27 +1,30 @@
 import React from 'react';
 import FloatingLabelInput from './FloatingLabelInput';
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { getSupportedCurrencies } from '../utils/formatCurrency';
 
 const BillToSection = ({ billTo, handleInputChange, selectedCurrency, setSelectedCurrency }) => {
+  const supportedCurrencies = getSupportedCurrencies();
+
   return (
     <div className="mb-6">
       <div className="mb-4">
         <h3 className="text-lg font-medium mb-2">Select Currency</h3>
-        <RadioGroup
-          value={selectedCurrency}
-          onValueChange={setSelectedCurrency}
-          className="flex space-x-4"
-        >
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="INR" id="inr" />
-            <Label htmlFor="inr">INR (₹)</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="USD" id="usd" />
-            <Label htmlFor="usd">USD ($)</Label>
-          </div>
-        </RadioGroup>
+        <div className="w-full max-w-xs">
+          <Select value={selectedCurrency} onValueChange={setSelectedCurrency}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select currency" />
+            </SelectTrigger>
+            <SelectContent>
+              {supportedCurrencies.map((currency) => (
+                <SelectItem key={currency.code} value={currency.code}>
+                  {currency.displayName}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <h2 className="text-2xl font-semibold mb-4">Bill To</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
