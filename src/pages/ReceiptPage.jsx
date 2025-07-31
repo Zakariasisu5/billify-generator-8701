@@ -11,6 +11,7 @@ import { generateReceiptPDF } from "../utils/receiptPDFGenerator";
 import { generateGSTNumber } from "../utils/invoiceCalculations";
 import FloatingLabelInput from "../components/FloatingLabelInput";
 import ItemDetails from "../components/ItemDetails";
+import CurrencySelector from "../components/CurrencySelector";
 
 const generateRandomInvoiceNumber = () => {
   const length = Math.floor(Math.random() * 6) + 3;
@@ -87,6 +88,8 @@ const ReceiptPage = () => {
   useEffect(() => {
     // Load form data from localStorage on component mount
     const savedFormData = localStorage.getItem("receiptFormData");
+    const invoiceFormData = localStorage.getItem("formData"); // Check invoice form data
+    
     if (savedFormData) {
       const parsedData = JSON.parse(savedFormData);
       setBillTo(parsedData.billTo || "");
@@ -97,11 +100,24 @@ const ReceiptPage = () => {
       setTaxPercentage(parsedData.taxPercentage || 0);
       setNotes(parsedData.notes || "");
       setFooter(parsedData.footer || "Thank you");
-      setSelectedCurrency(parsedData.selectedCurrency || "INR");
+      
+      // Check if invoice form has a different currency and sync it
+      if (invoiceFormData) {
+        const invoiceData = JSON.parse(invoiceFormData);
+        setSelectedCurrency(invoiceData.selectedCurrency || parsedData.selectedCurrency || "INR");
+      } else {
+        setSelectedCurrency(parsedData.selectedCurrency || "INR");
+      }
     } else {
       // Initialize with default values if nothing in localStorage
       setInvoice((prev) => ({ ...prev, number: generateRandomInvoiceNumber() }));
       setItems([{ name: "", description: "", quantity: 0, amount: 0, total: 0 }]);
+      
+      // Check invoice form currency and use it as default
+      if (invoiceFormData) {
+        const invoiceData = JSON.parse(invoiceFormData);
+        setSelectedCurrency(invoiceData.selectedCurrency || "INR");
+      }
     }
   }, []);
 
@@ -284,6 +300,15 @@ const ReceiptPage = () => {
               />
             </div>
 
+            {/* Currency Selection Component */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium mb-2">Select Currency</h3>
+              <CurrencySelector
+                selectedCurrency={selectedCurrency}
+                setSelectedCurrency={setSelectedCurrency}
+              />
+            </div>
+
             <div className="mb-6">
               <h2 className="text-2xl font-semibold mb-4">Bill To</h2>
               <FloatingLabelInput
@@ -323,6 +348,7 @@ const ReceiptPage = () => {
               handleItemChange={handleItemChange}
               addItem={addItem}
               removeItem={removeItem}
+              currencyCode={selectedCurrency}
             />
 
             <div className="mb-6">
