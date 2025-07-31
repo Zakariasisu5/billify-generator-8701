@@ -10,6 +10,23 @@ const currencyConfig = {
   CNY: { locale: 'zh-CN', symbol: '¥', name: 'Chinese Yuan' },
   CHF: { locale: 'de-CH', symbol: 'CHF', name: 'Swiss Franc' },
   SEK: { locale: 'sv-SE', symbol: 'kr', name: 'Swedish Krona' },
+  // African Currencies
+  GHS: { locale: 'en-GH', symbol: '₵', name: 'Ghanaian Cedi' },
+  NGN: { locale: 'en-NG', symbol: '₦', name: 'Nigerian Naira' },
+  ZAR: { locale: 'en-ZA', symbol: 'R', name: 'South African Rand' },
+  KES: { locale: 'en-KE', symbol: 'KSh', name: 'Kenyan Shilling' },
+  EGP: { locale: 'ar-EG', symbol: '£', name: 'Egyptian Pound' },
+  MAD: { locale: 'ar-MA', symbol: 'DH', name: 'Moroccan Dirham' },
+  TND: { locale: 'ar-TN', symbol: 'د.ت', name: 'Tunisian Dinar' },
+  ETB: { locale: 'am-ET', symbol: 'Br', name: 'Ethiopian Birr' },
+  UGX: { locale: 'en-UG', symbol: 'USh', name: 'Ugandan Shilling' },
+  TZS: { locale: 'sw-TZ', symbol: 'TSh', name: 'Tanzanian Shilling' },
+  RWF: { locale: 'rw-RW', symbol: 'FRw', name: 'Rwandan Franc' },
+  BWP: { locale: 'en-BW', symbol: 'P', name: 'Botswana Pula' },
+  ZMW: { locale: 'en-ZM', symbol: 'ZK', name: 'Zambian Kwacha' },
+  MWK: { locale: 'en-MW', symbol: 'MK', name: 'Malawian Kwacha' },
+  XOF: { locale: 'fr-SN', symbol: 'CFA', name: 'West African CFA Franc' },
+  XAF: { locale: 'fr-CM', symbol: 'FCFA', name: 'Central African CFA Franc' },
 };
 
 export const formatCurrency = (amount, currencyCode = 'INR', minimumFractionDigits = 2) => {
