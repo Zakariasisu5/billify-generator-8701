@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Loader2, RefreshCw, FileText, RotateCw } from "lucide-react";
+import { Loader2, RefreshCw, FileText, RotateCw, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Receipt1 from "../components/templates/Receipt1";
 import Receipt2 from "../components/templates/Receipt2";
@@ -163,6 +163,10 @@ const ReceiptPage = () => {
     }
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   const handleBack = () => {
     navigate("/");
   };
@@ -212,11 +216,18 @@ const ReceiptPage = () => {
     <div className="container mx-auto px-4 py-8 relative">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Receipt Generator</h1>
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={handlePrint}
+            className="mr-2"
+          >
+            <Printer className="mr-2 h-4 w-4" />
+            Print Receipt
+          </Button>
           <Button
             onClick={handleDownloadPDF}
             disabled={isDownloading}
-            className="mr-4"
+            className="mr-2"
           >
             {isDownloading ? (
               <>
@@ -465,7 +476,7 @@ const ReceiptPage = () => {
               </label>
             </div>
           </div>
-          <div ref={receiptRef} className="w-[380px] mx-auto border shadow-lg">
+          <div ref={receiptRef} className="w-[380px] mx-auto border shadow-lg print-content">
             {theme === "Receipt1" && (
               <Receipt1
                 data={{

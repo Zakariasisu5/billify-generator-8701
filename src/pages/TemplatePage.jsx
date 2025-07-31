@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Loader2 } from 'lucide-react';
+import { ArrowLeft, Loader2, Printer } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import InvoiceTemplate from '../components/InvoiceTemplate';
 import { generatePDF } from '../utils/pdfGenerator';
@@ -47,6 +47,10 @@ const TemplatePage = () => {
     navigate('/');
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   if (!formData) {
     return <div>Loading...</div>;
   }
@@ -57,16 +61,22 @@ const TemplatePage = () => {
         <Button variant="ghost" onClick={handleBack}>
           <ArrowLeft className="mr-2 h-4 w-4" /> Back
         </Button>
-        <Button onClick={handleDownloadPDF} disabled={isDownloading}>
-          {isDownloading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Downloading...
-            </>
-          ) : (
-            "Download PDF"
-          )}
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={handlePrint}>
+            <Printer className="mr-2 h-4 w-4" />
+            Print Invoice
+          </Button>
+          <Button onClick={handleDownloadPDF} disabled={isDownloading}>
+            {isDownloading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Downloading...
+              </>
+            ) : (
+              "Download PDF"
+            )}
+          </Button>
+        </div>
       </div>
 
       <div className="mb-8 overflow-x-auto">
@@ -87,7 +97,7 @@ const TemplatePage = () => {
         </div>
       </div>
 
-      <div className="w-[210mm] h-[297mm] mx-auto border shadow-lg">
+      <div className="w-[210mm] h-[297mm] mx-auto border shadow-lg print-content">
         <InvoiceTemplate data={formData} templateNumber={currentTemplate} />
       </div>
     </div>

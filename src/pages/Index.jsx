@@ -6,7 +6,7 @@ import BillToSection from '../components/BillToSection';
 import ShipToSection from '../components/ShipToSection';
 import ItemDetails from "../components/ItemDetails";
 import { templates } from "../utils/templateRegistry";
-import { FiEdit, FiFileText, FiTrash2 } from "react-icons/fi"; // Added FiTrash2 icon
+import { FiEdit, FiFileText, FiTrash2, FiPrinter } from "react-icons/fi"; // Added FiPrinter icon
 import { RefreshCw } from "lucide-react";
 import { set, sub } from "date-fns";
 
@@ -291,6 +291,10 @@ const Index = () => {
     setNotes("Thank you for your business!");
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   const clearForm = () => {
     setBillTo({ name: "", address: "", phone: "" });
     setShipTo({ name: "", address: "", phone: "" });
@@ -323,6 +327,13 @@ const Index = () => {
           aria-label="Fill with Dummy Data"
         >
           <FiEdit size={24} />
+        </button>
+        <button
+          onClick={handlePrint}
+          className="bg-purple-500 text-white p-2 rounded-full shadow-lg hover:bg-purple-600"
+          aria-label="Print Invoice"
+        >
+          <FiPrinter size={24} />
         </button>
       </div>
       <button

@@ -72,5 +72,44 @@
   }
   body {
     @apply bg-background text-foreground;
+}
+
+/* Print Styles */
+@media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
   }
+
+  /* Show only the invoice/receipt content */
+  .print-content,
+  .print-content * {
+    visibility: visible;
+  }
+
+  /* Position the print content */
+  .print-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* Hide headers, buttons, and form controls */
+  header,
+  nav,
+  .no-print,
+  button,
+  input,
+  textarea,
+  select,
+  .fixed {
+    display: none !important;
+  }
+
+  /* Optimize for print */
+  @page {
+    margin: 0.5in;
+  }
+}
 }
