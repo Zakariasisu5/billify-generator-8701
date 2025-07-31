@@ -9,6 +9,7 @@ const BillToSection = ({ billTo, handleInputChange, selectedCurrency, setSelecte
 
   return (
     <div className="mb-6">
+      {/* Currency selector for multiple currency support */}
       <div className="mb-4">
         <h3 className="text-lg font-medium mb-2">Select Currency</h3>
         <div className="w-full max-w-xs">
