@@ -13,6 +13,8 @@ import FloatingLabelInput from "../components/FloatingLabelInput";
 import ItemDetails from "../components/ItemDetails";
 import CurrencySelector from "../components/CurrencySelector";
 
+// Receipt page for generating receipts with multiple currency support
+
 const generateRandomInvoiceNumber = () => {
   const length = Math.floor(Math.random() * 6) + 3;
   const alphabetCount = Math.min(Math.floor(Math.random() * 4), length);
